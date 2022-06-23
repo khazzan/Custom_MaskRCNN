@@ -88,8 +88,9 @@ class CustomDataset(utils.Dataset):
         subset: Subset to load: train or val
         """
         # Add classes according to the numbe of classes required to detect
-        self.add_class("custom", 1, "object1")
-        self.add_class("custom",2,"object2")
+        self.add_class("custom", 1,"flank_wear")
+        self.add_class("custom", 2,"front_wear")
+        #self.add_class("custom", 3,"crater_wear")
 
         # Train or validation dataset?
         assert subset in ["train", "val"]
@@ -111,7 +112,7 @@ class CustomDataset(utils.Dataset):
         # }
         # We mostly care about the x and y coordinates of each region
         # Note: In VIA 2.0, regions was changed from a dict to a list.
-        annotations = json.load(open(os.path.join(dataset_dir, "via_region_data.json")))
+        annotations = json.load(open(os.path.join(dataset_dir, "annotations.json")))
         annotations = list(annotations.values())  # don't need the dict keys
 
         # The VIA tool saves images in the JSON even if they don't have any
@@ -133,10 +134,12 @@ class CustomDataset(utils.Dataset):
             #Add the classes according to the requirement
             for n in custom:
                 try:
-                    if n['label']=='object1':
+                    if n['label']=='flank_wear':
                         num_ids.append(1)
-                    elif n['label']=='object2':
+                    elif n['label']=='front_wear':
                         num_ids.append(2)
+                    #elif n['label']=='crater_wear':
+                        #num_ids.append(3)                        
                 except:
                     pass
 
@@ -305,7 +308,7 @@ if __name__ == '__main__':
                         metavar="/path/to/custom/dataset/",
                         help='Directory of the custom dataset')
     parser.add_argument('--weights', required=True,
-                        metavar="/path/to/weights.h5",
+                        metavar="/path/to/mask_rcnn_balloon.h5",
                         help="Path to weights .h5 file or 'coco'")
     parser.add_argument('--logs', required=False,
                         default=DEFAULT_LOGS_DIR,
