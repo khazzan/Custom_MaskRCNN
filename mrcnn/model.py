@@ -2364,7 +2364,7 @@ class MaskRCNN(object):
         self.keras_model.fit(
             train_generator,
             initial_epoch=self.epoch,
-            epochs=6,#epochs,
+            epochs=25,#epochs,
             steps_per_epoch=50,#self.config.STEPS_PER_EPOCH,
             callbacks=callbacks,
             validation_data=val_generator,

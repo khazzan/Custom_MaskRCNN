@@ -67,7 +67,7 @@ class CustomConfig(Config):
     IMAGES_PER_GPU = 2
 
     # Number of classes (including background)
-    NUM_CLASSES = 1 + 2  # Background + number of classes (Here, 2)
+    NUM_CLASSES = 1 + 1  # Background + number of classes (Here, 2)
 
     # Number of training steps per epoch
     STEPS_PER_EPOCH = 100
@@ -89,7 +89,7 @@ class CustomDataset(utils.Dataset):
         """
         # Add classes according to the numbe of classes required to detect
         self.add_class("custom", 1,"flank_wear")
-        self.add_class("custom", 2,"front_wear")
+        #self.add_class("custom", 2,"front_wear")
         #self.add_class("custom", 3,"crater_wear")
 
         # Train or validation dataset?
@@ -136,8 +136,8 @@ class CustomDataset(utils.Dataset):
                 try:
                     if n['label']=='flank_wear':
                         num_ids.append(1)
-                    elif n['label']=='front_wear':
-                        num_ids.append(2)
+                    #elif n['label']=='front_wear':
+                        #num_ids.append(2)
                     #elif n['label']=='crater_wear':
                         #num_ids.append(3)                        
                 except:
