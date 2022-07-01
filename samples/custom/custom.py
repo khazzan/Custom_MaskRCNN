@@ -125,9 +125,11 @@ class CustomDataset(utils.Dataset):
             # the outline of each object instance. These are stores in the
             # shape_attributes (see json format above)
             # The if condition is needed to support VIA versions 1.x and 2.x.
+            #polygons = [r['shape_attributes'] for r in a['regions']]
             polygons = [r['shape_attributes'] for r in a['regions'].values()]
             #labelling each class in the given image to a number
 
+            #custom = [s['shape_attributes'] for s in a['regions']]
             custom = [s['region_attributes'] for s in a['regions'].values()]
             
             num_ids=[]
